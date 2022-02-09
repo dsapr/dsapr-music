@@ -10,6 +10,6 @@
   "customLogs": "stdout",
   "dataBaseName":"dsapr-music",
   "executeSQLs":[
-    "CREATE DATABASE IF NOT EXISTS dsapr-music;"
+    "CREATE DATABASE IF NOT EXISTS `dsapr-music`;"
   ]
 }
