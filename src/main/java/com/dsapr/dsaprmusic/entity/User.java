@@ -3,11 +3,9 @@ package com.dsapr.dsaprmusic.entity;
 import com.dsapr.dsaprmusic.enums.Gender;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: chenyi.Wangwangwang
@@ -17,9 +15,14 @@ import java.util.Date;
 @Data
 public class User extends AbstractEntity{
 
+    @Column(unique = true)
     private String username;
 
     private String nickname;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
 
     private String password;
 

@@ -27,11 +27,15 @@ class UserRepositoryTest {
         user.setLocked(false);
         user.setPassword("879993");
         user.setGender(Gender.MALE);
+        user.setLastLoginIp("127.0.0.1");
         user.setLastLoginTime(new Date());
 
         User savedUser = repository.save(user);
-        System.out.println("savedUser = " + savedUser);
 
-//        repository.findByUsername(user.getUsername()).stream().forEach(System.out::println);
+        User result = repository.getByUsername("dsapr");
+//        User result = repository.getByUsernameAndNickname("dsapr", "辰怡");
+        System.out.println("result = " + result);
+
     }
+
 }
