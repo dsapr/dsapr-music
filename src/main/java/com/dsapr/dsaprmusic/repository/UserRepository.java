@@ -4,6 +4,7 @@ import com.dsapr.dsaprmusic.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author: chenyi.Wangwangwang
@@ -12,4 +13,6 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, String>{
     User getByUsername(String username);
     User getByUsernameAndNickname(String username, String nickname);
+
+    Optional<User> findByUsername(String username);
 }

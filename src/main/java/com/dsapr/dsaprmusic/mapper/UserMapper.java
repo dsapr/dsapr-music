@@ -1,5 +1,6 @@
 package com.dsapr.dsaprmusic.mapper;
 
+import com.dsapr.dsaprmusic.dto.UserCreateDto;
 import com.dsapr.dsaprmusic.dto.UserDto;
 import com.dsapr.dsaprmusic.entity.User;
 import com.dsapr.dsaprmusic.vo.UserVo;
@@ -16,4 +17,6 @@ public interface UserMapper {
     UserDto toDto(User user);
 
     UserVo toVo(UserDto userDto);
+
+    User createEntity(UserCreateDto userCreateDto);
 }

@@ -1,6 +1,8 @@
 package com.dsapr.dsaprmusic.service;
 
+import com.dsapr.dsaprmusic.dto.UserCreateDto;
 import com.dsapr.dsaprmusic.dto.UserDto;
+import com.dsapr.dsaprmusic.vo.UserVo;
 
 import java.util.List;
 
@@ -10,4 +12,6 @@ import java.util.List;
  */
 public interface UserService {
     List<UserDto> list();
+
+    UserDto create(UserCreateDto userCreateDto);
 }
