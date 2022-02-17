@@ -4,6 +4,8 @@ import com.dsapr.dsaprmusic.exception.BizException;
 import com.dsapr.dsaprmusic.exception.ErrorResponse;
 import com.dsapr.dsaprmusic.exception.ExceptionType;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -41,4 +43,16 @@ public class GlobalExceptionHandler {
         errorResponse.setMessage(ExceptionType.FORBIDDEN.getMessage());
         return errorResponse;
     }
+
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse bizExceptionHandler(MethodArgumentNotValidException e) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        for (ObjectError error : e.getBindingResult().getAllErrors()) {
+            errorResponse.setCode(ExceptionType.BAD_REQUEST.getCode());
+            errorResponse.setMessage(error.getDefaultMessage());
+        }
+        return errorResponse;
+    }
+
 }
