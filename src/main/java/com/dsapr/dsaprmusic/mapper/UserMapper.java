@@ -1,10 +1,12 @@
 package com.dsapr.dsaprmusic.mapper;
 
-import com.dsapr.dsaprmusic.dto.UserCreateDto;
+import com.dsapr.dsaprmusic.dto.UserCreateRequest;
 import com.dsapr.dsaprmusic.dto.UserDto;
+import com.dsapr.dsaprmusic.dto.UserUpdateRequest;
 import com.dsapr.dsaprmusic.entity.User;
 import com.dsapr.dsaprmusic.vo.UserVo;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,5 +20,7 @@ public interface UserMapper {
 
     UserVo toVo(UserDto userDto);
 
-    User createEntity(UserCreateDto userCreateDto);
+    User createEntity(UserCreateRequest userCreateRequest);
+
+    User updateEntity(@MappingTarget User user, UserUpdateRequest userUpdateRequest);
 }
