@@ -21,6 +21,12 @@ public class UserVo {
 
     private String nickname;
 
+    private Gender gender;
+
+    private Boolean locked;
+
+    private Boolean enabled;
+
     private List<RoleVo> roles;
 
 }

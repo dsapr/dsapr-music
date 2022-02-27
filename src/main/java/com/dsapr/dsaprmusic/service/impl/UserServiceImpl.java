@@ -1,5 +1,9 @@
 package com.dsapr.dsaprmusic.service.impl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.dsapr.dsaprmusic.config.SecurityConfig;
+import com.dsapr.dsaprmusic.dto.TokenCreateRequest;
 import com.dsapr.dsaprmusic.dto.UserCreateRequest;
 import com.dsapr.dsaprmusic.dto.UserDto;
 import com.dsapr.dsaprmusic.dto.UserUpdateRequest;
@@ -12,9 +16,13 @@ import com.dsapr.dsaprmusic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -82,6 +90,32 @@ public class UserServiceImpl implements UserService {
         }
 
         userRepository.delete(user);
+    }
+
+    @Override
+    public String createToken(TokenCreateRequest tokenCreateRequest) {
+        User user = loadUserByUsername(tokenCreateRequest.getUsername());
+        if (!passwordEncoder.matches(tokenCreateRequest.getPassword(), user.getPassword())) {
+            throw new BizException(ExceptionType.USER_PASSWORD_NOT_MATCH);
+        }
+        if (!user.isEnabled()) {
+            throw new BizException(ExceptionType.USER_NOT_ENABLED);
+        }
+        if (!user.isAccountNonLocked()) {
+            throw new BizException(ExceptionType.USER_LOCKED);
+        }
+
+        return JWT.create()
+                .withSubject(user.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConfig.EXPIRATION_TIME))
+                .sign(Algorithm.HMAC512(SecurityConfig.SECRET.getBytes(StandardCharsets.UTF_8)));
+    }
+
+    @Override
+    public UserDto getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = loadUserByUsername(authentication.getName());
+        return mapper.toDto(currentUser);
     }
 
     private void checkUserName(String username) {

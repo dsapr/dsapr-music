@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static final long EXPIRATION_TIME = 864000000; // 10 days
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
-    public static final String SIGN_UP_URL = "/users/";
+    public static final String CREATE_TOKEN_URL = "/tokens";
 
     @Autowired
     UserService userService;
@@ -37,15 +38,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 开启跨域关闭csrf
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll() // 暂时开放user请求
+                .antMatchers(HttpMethod.POST, CREATE_TOKEN_URL).permitAll() // 暂时开放user请求
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager())) // 用户名密码鉴权
+//                .addFilter(new JwtAuthenticationFilter(authenticationManager())) // 用户名密码鉴权
                 .addFilter(new JwtAuthorizationFilter(authenticationManager())) // token 鉴权
                 .exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 将session改为无状态
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/swagger**/**")//
+                .antMatchers("/webjars/**")//
+                .antMatchers("/v3/**")//
+                .antMatchers("/doc.html");
     }
 
     @Override

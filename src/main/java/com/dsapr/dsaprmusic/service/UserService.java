@@ -1,5 +1,6 @@
 package com.dsapr.dsaprmusic.service;
 
+import com.dsapr.dsaprmusic.dto.TokenCreateRequest;
 import com.dsapr.dsaprmusic.dto.UserCreateRequest;
 import com.dsapr.dsaprmusic.dto.UserDto;
 import com.dsapr.dsaprmusic.dto.UserUpdateRequest;
@@ -26,4 +27,8 @@ public interface UserService extends UserDetailsService {
     Page<UserDto> search(Pageable pageable);
 
     void delete(String id);
+
+    String createToken(TokenCreateRequest tokenCreateRequest);
+
+    UserDto getCurrentUser();
 }
