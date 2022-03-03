@@ -1,13 +1,13 @@
 package com.dsapr.dsaprmusic.config;
 
 import com.dsapr.dsaprmusic.exception.RestAuthenticationEntryPoint;
-import com.dsapr.dsaprmusic.filter.JwtAuthenticationFilter;
 import com.dsapr.dsaprmusic.filter.JwtAuthorizationFilter;
 import com.dsapr.dsaprmusic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,6 +20,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled= true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String SECRET = "DsaprMusic";
@@ -42,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
 //                .addFilter(new JwtAuthenticationFilter(authenticationManager())) // 用户名密码鉴权
-                .addFilter(new JwtAuthorizationFilter(authenticationManager())) // token 鉴权
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userService)) // token 鉴权
                 .exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
