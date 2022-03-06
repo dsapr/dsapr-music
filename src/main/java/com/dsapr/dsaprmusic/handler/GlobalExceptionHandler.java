@@ -3,6 +3,7 @@ package com.dsapr.dsaprmusic.handler;
 import com.dsapr.dsaprmusic.exception.BizException;
 import com.dsapr.dsaprmusic.exception.ErrorResponse;
 import com.dsapr.dsaprmusic.exception.ExceptionType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.ObjectError;
@@ -19,6 +20,7 @@ import java.util.List;
  * @date: 2022/2/14 14:00
  */
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = BizException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -36,6 +38,8 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setCode(ExceptionType.INNER_ERROR.getCode());
         errorResponse.setMessage(ExceptionType.INNER_ERROR.getMessage());
+        e.printStackTrace();
+//        log.error(e.getMessage());
         return errorResponse;
     }
 
