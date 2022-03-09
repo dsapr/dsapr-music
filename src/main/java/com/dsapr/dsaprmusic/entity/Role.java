@@ -3,6 +3,8 @@ package com.dsapr.dsaprmusic.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  * @author: chenyi.Wangwangwang
