@@ -9,7 +9,7 @@ import javax.persistence.Enumerated;
 
 @Entity
 @Data
-public class Music extends AbstractEntity{
+public class Music extends BaseEntity{
     private String name;
 
     @Enumerated(EnumType.STRING)

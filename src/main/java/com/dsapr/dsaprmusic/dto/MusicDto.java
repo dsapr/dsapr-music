@@ -5,20 +5,13 @@ import lombok.Data;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.util.Date;
 
 @Data
-public class MusicDto {
-    private String id;
-
+public class MusicDto extends BaseDto{
     private String name;
 
     @Enumerated(EnumType.STRING)
     private MusicStatus status;
 
     private String description;
-
-    private Date createdTime;
-
-    private Date updatedTime;
 }

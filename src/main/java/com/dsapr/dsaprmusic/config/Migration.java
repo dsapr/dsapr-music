@@ -8,7 +8,7 @@ import java.util.Date;
 public class Migration {
     public static void main(String[] args) {
         String fileName = "create_music_table";
-//        String path = "src/main/java/com/dsapr/dsaprmusic/config/";
+
         String path = "src/main/resources/db/migration/";
 
         SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMddHHmmss");

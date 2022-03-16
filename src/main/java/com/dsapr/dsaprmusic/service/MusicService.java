@@ -3,17 +3,12 @@ package com.dsapr.dsaprmusic.service;
 
 import com.dsapr.dsaprmusic.dto.MusicCreateRequest;
 import com.dsapr.dsaprmusic.dto.MusicDto;
-import com.dsapr.dsaprmusic.dto.MusicUpdateRequest;
+import com.dsapr.dsaprmusic.entity.Music;
 
-import java.util.List;
-
-public interface MusicService {
-
+public interface MusicService extends GeneralService<Music, MusicDto> {
     MusicDto create(MusicCreateRequest musicCreateRequest);
 
-    MusicDto update(String id, MusicUpdateRequest musicUpdateRequest);
-
-    List<MusicDto> list();
-
     void publish(String id);
+
+    void close(String id);
 }

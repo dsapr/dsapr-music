@@ -9,8 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
-public interface MusicMapper {
-    MusicDto toDto(Music music);
+public interface MusicMapper extends MapperInterface<Music, MusicDto> {
 
     MusicVo toVo(MusicDto musicDto);
 

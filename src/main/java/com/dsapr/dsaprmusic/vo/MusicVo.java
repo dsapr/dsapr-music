@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class MusicVo {
+public class MusicVo extends BaseVo {
     private String id;
 
     private String name;

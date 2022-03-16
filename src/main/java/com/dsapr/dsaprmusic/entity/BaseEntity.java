@@ -11,16 +11,15 @@ import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
 /**
- * @author: chenyi.Wangwangwang
- * @date: 2022/2/10 16:29
+ * @author dsapr
+ * @data 2022/3/16
  */
 @MappedSuperclass
 @Data
-public abstract class AbstractEntity {
-
+public abstract class BaseEntity {
     @Id
     @GeneratedValue(generator = "ksuid")
-    @GenericGenerator(name="ksuid", strategy = "com.dsapr.dsaprmusic.utils.KsuidIdentifierGenerator")
+    @GenericGenerator(name = "ksuid", strategy = "com.bilitech.yilimusic.utils.KsuidIdentifierGenerator")
     private String id;
 
     @CreationTimestamp
@@ -28,5 +27,4 @@ public abstract class AbstractEntity {
 
     @UpdateTimestamp
     private Date updatedTime;
-
 }
