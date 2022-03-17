@@ -19,7 +19,7 @@ import java.util.Date;
 public abstract class BaseEntity {
     @Id
     @GeneratedValue(generator = "ksuid")
-    @GenericGenerator(name = "ksuid", strategy = "com.bilitech.yilimusic.utils.KsuidIdentifierGenerator")
+    @GenericGenerator(name = "ksuid", strategy = "com.dsapr.dsaprmusic.utils.KsuidIdentifierGenerator")
     private String id;
 
     @CreationTimestamp

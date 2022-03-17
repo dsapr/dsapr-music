@@ -24,14 +24,14 @@ public class MusicServiceImpl extends GeneralServiceImpl<Music, MusicDto> implem
     @Override
     public void publish(String id) {
         Music music = getEntity(id);
-        music.setStatus(MusicStatus.CLOSED);
+        music.setStatus(MusicStatus.PUBLISED);
         repository.save(music);
     }
 
     @Override
     public void close(String id) {
         Music music = getEntity(id);
-        music.setStatus(MusicStatus.PUBLISED);
+        music.setStatus(MusicStatus.CLOSED);
         repository.save(music);
     }
 

@@ -21,7 +21,7 @@ class UserRepositoryTest {
     @Test
     void findByUsername() {
         User user = new User();
-        user.setUsername("dsapr");
+        user.setUsername("dsaprs");
         user.setNickname("辰怡");
         user.setEnabled(true);
         user.setLocked(false);
