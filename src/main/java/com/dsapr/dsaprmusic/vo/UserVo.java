@@ -13,7 +13,7 @@ import java.util.List;
  * @date: 2022/2/11 13:48
  */
 @Data
-public class UserVo {
+public class UserVo extends BaseVo{
 
     private String id;
 

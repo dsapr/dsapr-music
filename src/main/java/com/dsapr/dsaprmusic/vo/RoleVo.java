@@ -7,7 +7,7 @@ import lombok.Data;
  * @date: 2022/2/11 13:49
  */
 @Data
-public class RoleVo {
+public class RoleVo extends BaseVo{
 
     private String id;
 
